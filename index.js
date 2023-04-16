@@ -7,7 +7,18 @@ const app = express();
 
 app.use(healthz);
 
-app.use('/v1/execute', bodyParser.raw(), async (req, res) => {
+app.use('/v1/execute', function (req, res, next) {
+    var data = '';
+    req.setEncoding('utf8');
+    req.on('data', function (chunk) {
+        data += chunk;
+    });
+
+    req.on('end', function () {
+        req.body = data;
+        next();
+    });
+}, async (req, res) => {
     try {
         const data = {
             body: req.body,
