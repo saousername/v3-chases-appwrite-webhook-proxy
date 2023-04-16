@@ -7,7 +7,7 @@ const app = express();
 
 app.use(healthz);
 
-app.use('/v1/execute', async (req, res) => {
+app.use('/v1/execute', bodyParser.raw(), async (req, res) => {
     try {
         const data = {
             body: req.body,
