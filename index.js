@@ -35,6 +35,9 @@ app.use('/v1/execute', function (req, res, next) {
             async: false,
             data: JSON.stringify(data)
         };
+        
+        console.log("Body length:");
+        console.log(body.data.length);
 
         const headers = {
             'Content-Type': 'application/json',
